@@ -6,8 +6,8 @@ window.MPI_LESSONS = {
     video: 'assets/talk/model.mp4', poster: 'assets/talk/poster.jpg',
     source: 'Talk/Lesson005',
     prompts: [
-      { text: "Where’re you from?", spoken: "Where are you from?", meaning: 'どこから来たの？', instruction: '相手にたずねてみよう。', image: 'assets/talk/scene-1.png', audio: 'assets/talk/question.mp3', role: 'あなたが たずねる' },
-      { text: 'I’m from Japan.', spoken: "I'm from Japan.", meaning: '日本から来ました。', instruction: '相手のことばを聞いて、こたえよう。', image: 'assets/talk/scene-2.png', audio: 'assets/talk/answer.mp3', questionAudio: 'assets/talk/question.mp3', question: 'Where’re you from?', role: 'あなたが こたえる' }
+      { text: "Where’re you from?", spoken: "Where are you from?", meaning: 'どこから来たの？', instruction: '相手にたずねてみよう。', image: 'assets/talk/scene-1.png', audio: 'assets/talk/question.mp3', role: 'たずねよう' },
+      { text: 'I’m from Japan.', spoken: "I'm from Japan.", meaning: '日本から来ました。', instruction: '相手のことばを聞いて、こたえよう。', image: 'assets/talk/scene-2.png', audio: 'assets/talk/answer.mp3', questionAudio: 'assets/talk/question.mp3', question: 'Where’re you from?', role: 'こたえよう' }
     ]
   },
   aboutmyself: {
@@ -17,7 +17,7 @@ window.MPI_LESSONS = {
     source: 'aboutmyself/Lesson1',
     prompts: [
       { text: 'Hi.', spoken: 'Hi.', meaning: 'こんにちは。', instruction: 'まずは、元気にあいさつしよう。', role: 'あいさつ', pauseAt: 8, startAt: 0, audio: 'assets/aboutmyself/hi.mp3' },
-      { text: 'My name is Reina.', spoken: 'My name is Reina.', meaning: 'わたしの名前はレイナです。', instruction: 'レイナになって、名前を言ってみよう。', role: '名前をいう', pauseAt: 11, startAt: 8 },
+      { text: 'My name is Reina.', spoken: 'My name is Reina.', meaning: 'わたしの名前はレイナです。', instruction: 'レイナになって、名前を言ってみよう。', role: 'なまえをいう', pauseAt: 11, startAt: 8 },
       { text: 'Thank you.', spoken: 'Thank you.', meaning: 'ありがとう。', instruction: '最後は、お礼を言おう。', role: 'おれい', pauseAt: 13, startAt: 11 }
     ]
   }

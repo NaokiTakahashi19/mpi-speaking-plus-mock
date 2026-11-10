@@ -35,7 +35,8 @@ def inline_assets(value):
     return value
 
 css = (SOURCE / 'tokens.css').read_text() + '\n' + (SOURCE / 'styles.css').read_text().replace("@import url('tokens.css');", '')
-app = (SOURCE / 'app.js').read_text()
+logo = 'data:image/png;base64,' + base64.b64encode((SOURCE / 'assets/brand/mpi-logo.png').read_bytes()).decode('ascii')
+app = (SOURCE / 'app.js').read_text().replace('assets/brand/mpi-logo.png', logo)
 for key, data in lessons.items():
     html = (SOURCE / f'{key}.html').read_text()
     html = html.replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
@@ -46,5 +47,5 @@ for key, data in lessons.items():
     (OUT / f'{key}.html').write_text(html)
     print(f'{key}.html: {len(html.encode()):,} bytes')
 hub = (SOURCE / 'index.html').read_text().replace('<link rel="stylesheet" href="styles.css">', '<style>\n' + css + '\n</style>')
-(OUT / 'index.html').write_text(hub)
+(OUT / 'index.html').write_text(hub.replace('assets/brand/mpi-logo.png', logo))
 (OUT / '.nojekyll').write_text('')

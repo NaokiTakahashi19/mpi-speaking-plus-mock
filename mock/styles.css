@@ -1,4 +1,4 @@
-/* Hallmark · macrostructure: Workbench · tone: playful · theme: Hum · anchor hue: pear / cyan
+/* Hallmark · macrostructure: Workbench · tone: playful · theme: mpi brand reference · anchor hue: green / rose / yellow
  * Nav: N1 (two lesson destinations) · Footer: Ft2 · enrichment: original lesson media
  * audience: elementary pupils · use: LMS speaking practice
  * Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 */
@@ -165,3 +165,81 @@ body.embedded .header { display: none; }
 @media (prefers-reduced-motion:reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
 
 button:not(.btn):not(:disabled):active, .lesson-link:active { transform: translateY(1px); }
+
+/* Graphic operation guidance. Existing Hum palette and shared lesson structure retained. */
+video { aspect-ratio: auto; width: 100%; height: auto; object-fit: contain; }
+.scene { aspect-ratio: auto; width: 100%; height: auto; object-fit: contain; }
+.steps li > svg { width: 30px; height: 30px; }
+.steps .step-number { width: 22px; height: 22px; font-size: .75rem; }
+.picture-guide { list-style: none; padding: 0; margin: 20px 0 28px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.picture-guide li { position: relative; min-width: 0; text-align: center; padding: 8px 0 12px; border-radius: var(--radius-input); background: var(--color-paper-2); }
+.picture-guide li:not(:last-child)::after { content: '›'; position: absolute; right: -11px; top: 30%; font-size: 1.5rem; color: var(--color-muted); }
+.picture-guide .guide-active { background: var(--color-cyan-soft); outline: 2px solid var(--color-cyan); outline-offset: -2px; }
+.picture-guide li > span { display: block; font-size: .875rem; font-weight: 700; }
+.guide-graphic { display: block; width: 100%; height: auto; max-width: 160px; margin-inline: auto; stroke: var(--color-ink); stroke-width: 3; fill: none; }
+.guide-paper, .guide-hand { fill: var(--color-surface); }
+.guide-yellow { fill: var(--color-accent); }
+.guide-eye { fill: var(--color-ink); stroke: none; }
+.guide-stop { fill: var(--color-coral); }
+.guide-wave { stroke: var(--color-cyan); }
+.picture-button { min-height: 76px; padding: 12px 28px; font-size: 1.25rem; gap: 14px; }
+.picture-button svg { width: 36px; height: 36px; stroke-width: 2.2; }
+.picture-button.btn--record svg { width: 42px; height: 42px; }
+.btn--stop { min-width: 218px; }
+.btn--stop svg { fill: currentColor; }
+.guide-audio { flex-shrink: 0; }
+.prompt-top { flex-wrap: wrap; }
+.prompt-top .count { margin-inline-start: auto; }
+.adult-tools { margin-top: 20px; font-size: .8125rem; color: var(--color-muted); }
+.adult-tools summary { cursor: pointer; min-height: 44px; display: list-item; padding-block: 10px; }
+.adult-tools p { font-size: .8125rem; margin-block: 8px; }
+.adult-tools button { margin-inline-end: 12px; }
+.voice-review { display: flex; align-items: center; gap: 20px; }
+.voice-review > svg { width: 130px; margin-inline: 0; }
+.speaking-picture { display: flex; align-items: center; gap: 12px; margin-block: 12px; }
+.speaking-picture > svg { width: 120px; margin-inline: 0; }
+.speaking-picture .recording { flex-wrap: wrap; gap: 8px; }
+.cue-picture > svg { width: 144px; margin-block: 12px; }
+.back-action { display: inline-flex; align-items: center; gap: 8px; }
+.practice-panel .target { padding-block: 16px; }
+.practice-panel h2 { font-size: 1.5rem; }
+.record-note { font-size: .875rem; }
+.help { color: var(--color-ink); }
+.dialog .picture-guide { margin-block: 20px; }
+@media (max-width: 40rem) {
+ .steps li { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 6px; }
+ .steps li > span:last-child { flex-basis: 100%; text-align: center; }
+ .steps li > svg { width: 28px; height: 28px; }
+ .steps .step-number { width: 20px; height: 20px; }
+ .picture-guide { gap: 8px; margin-block: 16px 24px; }
+ .picture-guide li > span { font-size: .75rem; }
+ .picture-guide li:not(:last-child)::after { right: -8px; }
+ .picture-button { min-height: 76px; }
+ .speaking-picture > svg { width: 100px; }
+ .speaking-picture { gap: 8px; }
+ .voice-review { gap: 12px; }
+ .voice-review > svg { width: 100px; }
+ dialog { padding: 20px; }
+ .practice-panel .target { padding-block: 12px; }
+}
+
+/* mpi program reference: green Talk, rose About myself, colorful official logotype. */
+body { --color-lesson: oklch(45% .12 150); --color-lesson-soft: oklch(95% .035 150); --color-lesson-line: oklch(74% .10 150); }
+body[data-lesson="aboutmyself"] { --color-lesson: oklch(47% .14 355); --color-lesson-soft: oklch(96% .025 355); --color-lesson-line: oklch(77% .08 355); }
+.brand { flex-wrap: wrap; gap: 12px; }
+.mpi-logo { display: block; width: clamp(200px, 28vw, 280px); height: auto; object-fit: contain; }
+.brand-program { font-size: .9375rem; letter-spacing: .02em; color: var(--color-muted); }
+.header { padding-block: 20px 12px; }
+.page-head { padding-block: 16px; }
+.media-panel { background: var(--color-lesson-soft); }
+.role, .listen { color: var(--color-lesson); }
+.listen { border-color: var(--color-lesson); }
+.small-btn { border-color: var(--color-lesson); }
+.lesson-badge { background: var(--color-lesson); color: var(--color-surface); padding: 6px 16px; border-radius: var(--radius-input); font-family: var(--font-display); font-size: 1rem; }
+.picture-guide .guide-active { background: var(--color-lesson-soft); outline-color: var(--color-lesson); }
+.guide-wave { stroke: var(--color-lesson); }
+.page-head h1 { font-size: clamp(1.7rem, 3vw, 2.4rem); }
+.media-tag, .subtitle { font-size: .875rem; }
+.steps { margin-bottom: 20px; }
+.tip { display: none; }
+@media (max-width: 40rem) { .brand-program { font-size: .8125rem; } .brand { gap: 8px; } .mpi-logo { width: 220px; } .header { padding-block: 16px 4px; } .steps li > svg { width: 28px; height: 28px; } }
