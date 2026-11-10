@@ -5,14 +5,14 @@
  const key=document.body.dataset.lesson;
  const lesson=window.MPI_LESSONS[key];
  const state={screen:'intro',phase:'ready',prompt:0,watched:false,stars:null,results:lesson.prompts.map(()=>null),generation:0};
- let recorder=null,stream=null,audio=null,ownUrl=null,previousUrl=null,clock=null,context=null,meterFrame=null,startTime=0,peak=0,monitored=false;
- let audioGeneration=0, takeCount=0;
+ let recorder=null,stream=null,ownUrl=null,previousUrl=null,clock=null,context=null,meterFrame=null,startTime=0,peak=0,monitored=false;
+ let takeCount=0;
  const characterAccessory=key==='talk'?'<path class="character-second" d="M42 7h12q7 0 7 7v8q0 6-7 6h-5l-6 4v-7q-5-1-5-6v-7q0-5 4-5Z"/><path d="M44 14h10m-10 5h7"/>':'<path d="M44 42l9-10m0-2v-8m0 8 6-5"/>';
  const typeCharacter='<svg viewBox="0 0 64 64" aria-hidden="true"><path class="character-ground" d="M8 28Q5 8 30 5q28-3 29 26 2 28-25 28Q6 61 8 28Z"/><circle class="character-face" cx="27" cy="26" r="15"/><path d="M14 18q11-14 26 0M14 55V46q0-9 13-9t13 9v8"/><circle class="character-eye" cx="22" cy="25" r="1.5"/><circle class="character-eye" cx="33" cy="25" r="1.5"/><path d="M22 31q5 5 10 0"/>'+characterAccessory+'</svg>';
  document.title=`${lesson.name} | mpi英語プログラム`;
  $('app').innerHTML=`<header class="masthead"><div class="header-inner"><img class="logo" src="assets/brand/mpi-logo.png" width="432" height="82" alt="mpi英語プログラム"><div class="lesson-type">${typeCharacter}<strong>${lesson.name}</strong><span>${key==='talk'?'かいわ':'じこしょうかい'}</span></div><span class="lesson-number">${lesson.lesson}</span></div></header>
  <main class="lesson-main"><div class="stage-bar"><div class="stage-name" id="stage-name"></div><div class="stage-caption"><span id="stage-caption"></span><span class="prompt-count" id="prompt-count"></span></div></div><div class="stage-content">
- <section class="intro" id="intro"><figure><img class="intro-poster" id="intro-poster" width="880" height="484" alt="おてほんの動画"></figure><div><h1 class="intro-title" id="intro-title"></h1><p class="intro-meaning" id="intro-meaning"></p>${guide('watch')}<div class="intro-actions"><button class="nav-button primary" id="start">${icon('play')}スタート</button></div></div></section>
+ <section class="intro" id="intro"><figure><img class="intro-poster" id="intro-poster" width="880" height="484" alt="どうが"></figure><div><h1 class="intro-title" id="intro-title"></h1><p class="intro-meaning" id="intro-meaning"></p>${guide('watch')}<div class="intro-actions"><button class="nav-button primary" id="start">${icon('play')}スタート</button></div></div></section>
  <section class="media-frame" id="media-frame" hidden aria-label="動画"><video id="video" width="880" height="484" playsinline controls preload="metadata"></video><div class="video-cover" id="video-cover"><button class="play-video" id="play-video" aria-label="動画を再生">${icon('play')}</button></div><div class="cue-overlay" id="cue-overlay" hidden></div></section>
  <section class="practice-frame" id="practice-frame" hidden aria-label="会話のれんしゅう"><img class="scene" id="scene" width="720" height="480" alt=""><div class="practice-overlay" id="practice-overlay"></div></section>
  <section class="finished" id="finished" hidden></section></div><div class="status" id="status" aria-live="polite"></div>
@@ -29,7 +29,7 @@
  video.addEventListener('ended',()=>{if(state.screen==='watch'){state.watched=true;render();}else if(key==='aboutmyself'&&state.phase==='tail'){finish();}else if(state.phase==='cue'){state.phase='ready';render();}});
  video.addEventListener('error',()=>message('どうがを よみこめませんでした。せんせいに きいてね。',true));
  function message(text='',error=false){$('status').textContent=text;$('status').className=error?'status error':'status';}
- function stopAudio(){audioGeneration++;if(audio){audio.pause();audio=null;}if('speechSynthesis'in window)speechSynthesis.cancel();['own-audio','previous-audio','retained-audio'].forEach(id=>{if($(id))$(id).pause();});const button=$('model');if(button)button.disabled=['recording','requesting','saving'].includes(state.phase);}
+ function stopAudio(){['own-audio','previous-audio','retained-audio'].forEach(id=>{if($(id))$(id).pause();});}
  function revoke(){if(ownUrl)URL.revokeObjectURL(ownUrl);if(previousUrl)URL.revokeObjectURL(previousUrl);ownUrl=null;previousUrl=null;takeCount=0;}
  function stopMonitor(){clearInterval(clock);clock=null;cancelAnimationFrame(meterFrame);if(context){context.close().catch(()=>{});context=null;}}
  function release(){if(stream)stream.getTracks().forEach(t=>t.stop());stream=null;}
@@ -45,8 +45,8 @@
   $('next').disabled=false;$('next').innerHTML='つぎへ'+icon('arrow');$('back').disabled=['recording','requesting','saving'].includes(state.phase);
   $('back').innerHTML='<span class="back-arrow">'+icon('arrow')+'</span>もどる';
   if(intro){bar('はじめよう',key==='talk'?'かいわに チャレンジ':'じこしょうかいに チャレンジ');return;}
-  if(watch){bar('おてほん','みてみよう');$('video-cover').hidden=!video.paused;$('next').disabled=!state.watched;return;}
-  if(finished){bar('きょうの けっか','おつかれさま！');$('back').innerHTML=icon('replay')+'おてほん';$('next').innerHTML=icon('replay')+'もういちど';return;}
+  if(watch){bar('どうが','みてみよう');$('video-cover').hidden=!video.paused;$('next').disabled=!state.watched;return;}
+  if(finished){bar('きょうの けっか','おつかれさま！');$('back').innerHTML=icon('replay')+'はじめに';$('next').innerHTML=icon('replay')+'もういちど';return;}
   const p=lesson.prompts[state.prompt];
   bar(key==='talk'?'きょうの ことば':'チャレンジ！',state.phase==='review'?(state.stars?'けっかを みよう':'じぶんの こえを きこう'):state.phase==='cue'||state.phase==='tail'?'みてみよう':p.role,`${state.prompt+1} / ${lesson.prompts.length}`);
   const readyToNext=state.phase==='review';$('next').disabled=!readyToNext;
@@ -58,8 +58,7 @@
  }
  function ribbon(stars){const judged=stars===1||stars===3;return `<div class="rating" aria-label="${judged?stars+'つ星':'まだ判定していません'}"><div class="ribbon"><span class="ribbon-stars">${[0,1,2].map(i=>`<span class="${judged&&i<stars?'lit':'unlit'}">${icon('star')}</span>`).join('')}</span></div><p class="rating-label">${judged?(stars===3?'パーフェクト!!':'もういちど！'):'こえを きいてみよう'}</p></div>`;}
  function promptMarkup(p){
-  const busy=['recording','requesting','saving'].includes(state.phase);
-  const top=`<div class="phrase-block">${p.question?`<p class="question-line">${icon('sound')}<span lang="en">${p.question}</span></p>`:''}<h1 class="phrase" lang="en">${p.text}</h1><p class="translation">${p.meaning}</p><button class="model-button" id="model" ${busy?'disabled':''}>${icon('sound')}おてほん</button></div>`;
+  const top=`<div class="phrase-block">${p.question?`<p class="question-line">${icon('chat')}<span lang="en">${p.question}</span></p>`:''}<h1 class="phrase" lang="en">${p.text}</h1><p class="translation">${p.meaning}</p></div>`;
   let action='';
   if(state.phase==='recording')action=`<div class="record-line" role="status"><span class="record-dot"></span><span>きいているよ</span><span class="timer" id="timer">0:00</span></div><button class="picture-action stop" id="stop">${icon('stop')}おわった</button>`;
   else if(state.phase==='requesting'||state.phase==='saving')action=`<p role="status">${state.phase==='requesting'?'マイクを じゅんびちゅう…':'ちょっと まってね…'}</p><button class="replay-small" id="cancel">やめる</button>`;
@@ -67,10 +66,8 @@
   else action=`<button class="picture-action" id="record" aria-label="マイクをおしてはなす">${drawing('tap')}はなす</button>${ownUrl?`<button class="replay-small" id="retained-voice">${icon('sound')}さっきの こえを きく</button><audio id="retained-audio" hidden></audio>`:''}`;
   return `${top}<div class="action-area">${action}</div>`;
  }
- function bindPrompt(){if($('previous-audio')){$('previous-audio').src=previousUrl;$('previous-voice').onclick=()=>{stopAudio();$('previous-audio').play().catch(()=>message('もういちど おしてね。',true));};}if($('retained-audio')){$('retained-audio').src=ownUrl;$('retained-voice').onclick=()=>{stopAudio();$('retained-audio').play().catch(()=>message('もういちど おしてね。',true));};}if($('record'))$('record').onclick=record;if($('stop'))$('stop').onclick=stopRecording;if($('cancel'))$('cancel').onclick=()=>{cancelCapture();state.phase='ready';render();};if($('retry'))$('retry').onclick=record;if($('model'))$('model').onclick=playModel;if($('own-audio')){$('own-audio').src=ownUrl;$('own-audio').onplay=()=>{if($('previous-audio'))$('previous-audio').pause();if(audio)audio.pause();if('speechSynthesis'in window)speechSynthesis.cancel();};$('own').onclick=()=>{stopAudio();$('own-audio').play().catch(()=>message('もういちど おしてね。',true));};}}
+ function bindPrompt(){if($('previous-audio')){$('previous-audio').src=previousUrl;$('previous-voice').onclick=()=>{stopAudio();$('previous-audio').play().catch(()=>message('もういちど おしてね。',true));};}if($('retained-audio')){$('retained-audio').src=ownUrl;$('retained-voice').onclick=()=>{stopAudio();$('retained-audio').play().catch(()=>message('もういちど おしてね。',true));};}if($('record'))$('record').onclick=record;if($('stop'))$('stop').onclick=stopRecording;if($('cancel'))$('cancel').onclick=()=>{cancelCapture();state.phase='ready';render();};if($('retry'))$('retry').onclick=record;if($('own-audio')){$('own-audio').src=ownUrl;$('own-audio').onplay=()=>{if($('previous-audio'))$('previous-audio').pause();};$('own').onclick=()=>{stopAudio();$('own-audio').play().catch(()=>message('もういちど おしてね。',true));};}}
  async function playVideo(){if(['recording','requesting','saving'].includes(state.phase))return;stopAudio();try{await video.play();}catch{message('▶ を もういちど おしてね。',true);}}
- function playFile(src,generation){return new Promise((resolve,reject)=>{if(generation!==audioGeneration)return resolve();audio=new Audio(src);audio.onended=resolve;audio.onerror=reject;audio.play().catch(reject);});}
- async function playModel(){stopAudio();const p=lesson.prompts[state.prompt],generation=audioGeneration;const button=$('model');if(button)button.disabled=true;try{if(p.questionAudio)await playFile(p.questionAudio,generation);if(generation!==audioGeneration)return;if(p.audio)await playFile(p.audio,generation);else await new Promise((resolve,reject)=>{if(!('speechSynthesis'in window))return reject();const u=new SpeechSynthesisUtterance(p.spoken);u.lang='en-US';u.rate=.85;const v=speechSynthesis.getVoices().find(v=>v.lang.startsWith('en'));if(v)u.voice=v;u.onend=resolve;u.onerror=reject;speechSynthesis.speak(u);});}catch{if(generation===audioGeneration)message('おてほんを きけませんでした。もういちど おしてね。',true);}finally{if(generation===audioGeneration){const current=$('model');if(current)current.disabled=false;}}}
  function monitor(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;context=new C();context.resume().catch(()=>{});const analyser=context.createAnalyser();analyser.fftSize=1024;context.createMediaStreamSource(stream).connect(analyser);const data=new Uint8Array(1024);const tick=()=>{if(!context||!stream)return;analyser.getByteTimeDomainData(data);let sum=0;for(const x of data)sum+=((x-128)/128)**2;peak=Math.max(peak,Math.sqrt(sum/data.length));if(context.state==='running')monitored=true;meterFrame=requestAnimationFrame(tick);};tick();}catch{stopMonitor();}}
  async function record(){
   cleanup();const generation=state.generation;
