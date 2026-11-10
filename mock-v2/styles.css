@@ -190,3 +190,24 @@ video { display:block; width:100%; height:auto; aspect-ratio:20/11; object-fit:c
 .microphone-option { display:flex;align-items:center;gap:8px;min-height:44px;cursor:pointer; }
 .microphone-option input { width:20px;height:20px;accent-color:var(--color-lesson); }
 @media(max-width:40rem) { .lesson-type { padding:2px 8px 2px 2px; gap:6px; } .lesson-type>svg { width:36px;height:36px; } .lesson-type strong { font-size:1.125rem; } .lesson-type span { font-size:.75rem; } }
+.take-label { font-size:.8125rem;color:var(--color-muted);line-height:1.3; }
+.retry-action { font-size:1.0625rem; }
+.retry-action>.guide-graphic { width:88px; }
+.previous-voice { font-size:.875rem;min-height:40px; }
+.action-area:has(.previous-voice) { gap:8px; }
+@media(max-width:40rem) { .review-actions .retry-action { padding-inline:8px 16px; } .review-actions .retry-action>.guide-graphic { width:72px; } }
+/* Playback and repeat recording stay together, with space for the previous take. */
+.review-actions { width:100%; }
+.review-actions .picture-action { min-width:0;flex:1;flex-direction:column;gap:0;min-height:96px;padding:8px 12px;font-size:.9375rem; }
+.review-actions .picture-action>.guide-graphic { width:72px; }
+.action-area:has(.previous-voice) { gap:4px; }
+@media(min-width:40.01rem) {
+ .practice-overlay:has(.rating),.cue-overlay:has(.rating) { display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:24px;align-items:center; }
+ .practice-overlay:has(.rating) .phrase,.cue-overlay:has(.rating) .phrase { font-size:clamp(1.6rem,2.8vw,2.3rem); }
+ .rating-label { font-size:1.25rem; }
+}
+@media(max-width:40rem) {
+ .review-actions { flex-direction:column; }
+ .review-actions .picture-action { width:min(100%,280px);min-height:80px;flex-direction:row;gap:8px;flex:none;padding:8px 12px;font-size:1rem; }
+ .review-actions .picture-action>.guide-graphic { width:72px; }
+}
