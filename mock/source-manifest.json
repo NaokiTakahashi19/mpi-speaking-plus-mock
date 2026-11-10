@@ -1,0 +1,31 @@
+{
+  "created": "2026-11-10",
+  "monthlyAssessmentsPerLearner": 50,
+  "mode": "mock-no-api",
+  "lessons": [
+    {
+      "key": "talk",
+      "source": "Talk/Lesson005",
+      "reason": "質問と応答の両方を練習する代表的な会話",
+      "prompts": [
+        "Where're you from?",
+        "I'm from Japan."
+      ]
+    },
+    {
+      "key": "aboutmyself",
+      "source": "aboutmyself/Lesson1",
+      "reason": "動画を止めて3つのせりふを話す基本の自己紹介",
+      "prompts": [
+        "Hi.",
+        "My name is Reina.",
+        "Thank you."
+      ],
+      "pauseAtSeconds": [
+        8,
+        11,
+        13
+      ]
+    }
+  ]
+}
