@@ -44,6 +44,13 @@
   document.title = `${lesson.name} · ${lesson.title} | mpi speaking plus`;
   const app = $('app');
   app.innerHTML = `
+    <section class="lesson-identity" aria-label="いまのきょうざい">
+      <div class="shell identity-inner">
+        <span class="identity-symbol" aria-hidden="true">${icon(key === 'talk' ? 'chat' : 'person')}</span>
+        <div class="identity-title"><p class="identity-name" lang="en">${lesson.name}</p><p class="identity-description">${key === 'talk' ? 'かいわ' : 'じこしょうかい'}</p></div>
+        <span class="identity-lesson">${lesson.lesson}</span>
+      </div>
+    </section>
     <header class="header shell">
       <div class="brand"><img class="mpi-logo" src="assets/brand/mpi-logo.png" width="432" height="82" alt="mpi英語プログラム"><span class="brand-program">speaking plus</span></div>
 
@@ -70,7 +77,7 @@
       <footer class="foot"><span class="mock-label">たいけんばん · 星とコメントはサンプルです</span><span>mpi 英語プログラム · speaking plus</span></footer>
     </main>
     <dialog id="help-dialog" aria-labelledby="help-title"><h2 id="help-title">やってみよう</h2>${guide()}<button class="small-btn" id="help-audio">${icon('sound')}せつめいをきく</button><details class="adult-tools"><summary>おとなのかたへ</summary><p>録音は1回30秒まで。声はサーバーに送信しません。星とコメントはサンプル表示です。マイクの許可画面が表示された場合は、端末の設定を確認してください。</p></details><button class="btn" id="close-help">${icon('check')}わかった</button></dialog>`;
-  $('lesson-meta').textContent = `${lesson.name}  /  ${lesson.lesson}`;
+  $('lesson-meta').textContent = lesson.lesson;
   $('page-title').textContent = query.get('title')?.slice(0, 80) || lesson.title;
   $('subtitle').textContent = lesson.subtitle;
   const video = $('model-video');

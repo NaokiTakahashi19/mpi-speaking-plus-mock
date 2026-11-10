@@ -243,3 +243,23 @@ body[data-lesson="aboutmyself"] { --color-lesson: oklch(47% .14 355); --color-le
 .steps { margin-bottom: 20px; }
 .tip { display: none; }
 @media (max-width: 40rem) { .brand-program { font-size: .8125rem; } .brand { gap: 8px; } .mpi-logo { width: 220px; } .header { padding-block: 16px 4px; } .steps li > svg { width: 28px; height: 28px; } }
+
+/* Persistent, non-interactive lesson identity, also visible inside LMS embeds. */
+.lesson-identity { position: sticky; top: 0; z-index: 20; background: var(--color-lesson); color: var(--color-surface); }
+.identity-inner { display: flex; align-items: center; gap: 16px; min-height: 92px; padding-block: 12px; }
+.identity-symbol { display: grid; place-items: center; width: 56px; height: 56px; flex-shrink: 0; border: 2px solid currentColor; border-radius: 16px; }
+.identity-symbol svg { width: 36px; height: 36px; stroke-width: 1.8; }
+.identity-title { min-width: 0; }
+.identity-name { font-family: var(--font-display); font-size: 2rem; font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.identity-description { font-size: 1rem; line-height: 1.5; margin-top: 4px; font-weight: 600; }
+.identity-lesson { margin-inline-start: auto; font-family: var(--font-display); font-size: 1rem; white-space: nowrap; }
+#practice-panel, #model-video, #finish-heading, #main { scroll-margin-top: 112px; }
+@media (max-width: 40rem) {
+ .identity-inner { gap: 12px; min-height: 84px; }
+ .identity-symbol { width: 44px; height: 44px; border-radius: 12px; }
+ .identity-symbol svg { width: 28px; height: 28px; }
+ .identity-name { font-size: 1.625rem; white-space: nowrap; }
+ .identity-description { font-size: .875rem; }
+ .identity-lesson { display: none; }
+ #practice-panel, #model-video, #finish-heading, #main { scroll-margin-top: 100px; }
+}
