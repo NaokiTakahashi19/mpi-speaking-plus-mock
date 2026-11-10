@@ -88,7 +88,7 @@
     if (audio) { audio.pause(); audio.onended = null; audio.onerror = null; audio = null; }
     if ('speechSynthesis' in window) window.speechSynthesis.cancel();
     const button = $('listen-model');
-    if (button) { button.disabled = false; button.innerHTML = icon('sound') + 'おてほん'; }
+    if (button) { button.disabled = ['recording', 'requesting', 'saving', 'cue'].includes(state.phase); button.innerHTML = icon('sound') + 'おてほん'; }
   }
   function revokeRecording() { if (playbackUrl) URL.revokeObjectURL(playbackUrl); playbackUrl = null; }
   function stopMonitor() {
