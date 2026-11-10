@@ -3,3 +3,11 @@
 .hallmark/
 mock/qa/
 mpi-speaking-plus-mock.zip
+
+# Local-only reference copies and task artifacts
+original-preview/
+public/original-*.html
+scripts/build_original_preview.py
+outputs/
+コンテンツ一覧/
+mpi-speaking-plus-v2.zip

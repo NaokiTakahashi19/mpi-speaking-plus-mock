@@ -26,3 +26,16 @@
 [教材の構成・LMS埋め込み手順](mock/README.md)
 
 元教材素材はmpi英語プログラムのものです。このリポジトリは素材の再利用許諾やオープンソースライセンスを付与するものではありません。
+
+## 第2案
+
+元教材に近い画面遷移と、小学生向けのグラフィックを使った別案です。
+
+- [Talk 第2案](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/talk-v2.html)
+- [About myself 第2案](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/aboutmyself-v2.html)
+
+初期状態はマイク不要の画面確認モードです。下部「画面確認」で「実際にマイクで録音する」を選ぶと、録音と自分の声の聞き直しができます。星3つ・星1つは表示サンプルで、音声判定APIは未接続です。
+
+[第2案の構成と確認手順](mock-v2/README.md)
+
+再生成：`python3 scripts/build_v2.py`
