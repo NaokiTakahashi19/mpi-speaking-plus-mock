@@ -14,11 +14,14 @@
 - [教材のトップ](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/)
 - [Talk](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/talk.html)
 - [About myself](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/aboutmyself.html)
-- [iframe表示の確認](https://naokitakahashi19.github.io/mpi-speaking-plus-mock/embed-test.html)
 
 ## 配信
 
-`main`へのpushでGitHub ActionsからGitHub Pagesへ`mock/`を配信します。S3＋CloudFrontへ同じ構成で配置することもできます。
+`public/talk.html`と`public/aboutmyself.html`は、それぞれ動画・画像・音声・CSS・JavaScriptをすべて含む独立したHTMLファイルです。各ファイル1つで配信でき、教材内に切替ナビゲーションはありません。
+
+`main`へのpushでGitHub ActionsからGitHub Pagesへ`public/`を配信します。S3＋CloudFrontにも、使いたいHTMLファイルだけを配置できます。
+
+編集用ソースは`mock/`にあります。変更後は`python3 scripts/build_standalone.py`（Python 3とNode.jsが必要）で配信用ファイルを再生成します。
 
 [教材の構成・LMS埋め込み手順](mock/README.md)
 

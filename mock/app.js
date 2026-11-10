@@ -17,7 +17,7 @@
   const icon = (name) => `<svg viewBox="0 0 24 24" aria-hidden="true">${icons[name] || icons.chat}</svg>`;
   const query = new URLSearchParams(location.search);
   const initial = query.get('lesson') || document.body.dataset.lesson || 'talk';
-  const key = Object.hasOwn(window.MPI_LESSONS, initial) ? initial : 'talk';
+  const key = Object.hasOwn(window.MPI_LESSONS, initial) ? initial : (document.body.dataset.lesson || Object.keys(window.MPI_LESSONS)[0]);
   const lesson = window.MPI_LESSONS[key];
   const embedded = query.get('embed') === '1';
   const state = { stage: 'watch', prompt: 0, phase: 'ready', results: lesson.prompts.map(() => null), generation: 0 };
@@ -30,10 +30,7 @@
   app.innerHTML = `
     <header class="header shell">
       <div class="brand" aria-label="mpi speaking plus"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span><span class="brand-name">mpi <span style="font-weight:400">speaking plus</span></span><span class="brand-small">英語を、声に出してみよう。</span></span></div>
-      <nav class="lesson-nav" aria-label="教材をえらぶ">
-        <a class="lesson-link" href="?lesson=talk" ${key === 'talk' ? 'aria-current="page"' : ''}>${icon('chat')}Talk</a>
-        <a class="lesson-link" href="?lesson=aboutmyself" ${key === 'aboutmyself' ? 'aria-current="page"' : ''}>${icon('person')}About myself</a>
-      </nav>
+
     </header>
     <main class="shell" id="main">
       <div class="page-head"><div><p class="lesson-meta" id="lesson-meta"></p><h1 id="page-title"></h1><p class="subtitle" id="subtitle"></p></div><button class="help" id="help-button" type="button">${icon('help')}<span>つかいかた</span></button></div>

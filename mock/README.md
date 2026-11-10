@@ -4,7 +4,7 @@
 
 ## 開くページ
 
-- `index.html`：2教材を切り替えて確認
+- `index.html`：独立した2教材の入口を表示
 - `talk.html`：Talk / Lesson005「Where’re you from?」「I’m from Japan.」
 - `aboutmyself.html`：aboutmyself / Lesson1「Hi.」「My name is Reina.」「Thank you.」
 - `embed-test.html`：マイクを許可したiframeでの埋め込み表示例
@@ -32,6 +32,12 @@
 - 成績の永続保存・LMSへの成績送信・利用回数制限・ユーザー認証は未実装です。
 - レイナの名前は元教材どおり固定です。本人の名前を入力する機能はありません。
 - About myselfの「My name is Reina.」「Thank you.」のお手本はブラウザの英語読み上げです。端末によって声が異なり、利用できない場合は案内します。Hi.とTalkは元教材の音声です。
+
+## 独立HTML版（推奨）
+
+`../public/talk.html`と`../public/aboutmyself.html`は、それぞれ1ファイルで動く配信用HTMLです。動画・音声・画像・CSS・JavaScriptを内包しているため、使いたいHTMLだけをS3へ配置できます。2教材を同じ場所へ置く必要はありません。Talkは約12MBのため、初回にファイル全体を読み込みます。
+
+以下は編集用ソース一式をそのまま配信する場合の説明です。
 
 ## S3への配置
 
@@ -66,7 +72,7 @@ S3のアップロード方法によっては、Content-Typeが自動設定され
 ></iframe>
 ```
 
-- `?embed=1`で上部の教材切替ヘッダーを非表示にします。
+- 教材内に切替ナビゲーションはありません。`?embed=1`で上部のブランドヘッダーを非表示にします。
 - `?title=...`で画面上部のタイトルを変更できます。URLエンコードして指定します。
 - HTML・JavaScriptの実行とiframe内でのマイク使用をLMS側で許可してください。
 - LMSがPermissions-Policyでマイクを禁止している場合は、iframeのallowだけでは許可できません。親画面側の許可も必要です。
